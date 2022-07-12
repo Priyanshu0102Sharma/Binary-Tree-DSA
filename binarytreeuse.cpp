@@ -67,7 +67,7 @@ BinaryTreeNode<int> * takeinputlevelwise()
             front->left=l_child;
             pendingNode.push(l_child);
         } 
-        cout<<"Enter Right Node data of "<<front->data;
+        cout<<"Enter Right Node data of "<<front->data<<endl;
         int rightChild;
         cin>>rightChild;
         if(rightChild!=-1)
@@ -80,7 +80,42 @@ BinaryTreeNode<int> * takeinputlevelwise()
         return root;
 }
 
+//traversals in binary tree
+// _1. pre order traversal N->left->right
+// _2. post-order traversal left->right->node;
+// _3. in-order traversal left->node->right
+// inorder traversal
+void inorder(BinaryTreeNode<int> * root)
+{
+    if(root==NULL)
+    return ;
+    inorder(root->left);
+    cout<<root->data<<" ";
+    inorder(root->right);
+    
+}
 
+
+//postorder traversal
+void postorder(BinaryTreeNode<int> * root)
+{
+    if(root==NULL)
+    return;
+    postorder(root->left);
+    postorder(root->right);
+    cout<<root->data<<" ";
+}
+
+//preorder traversal
+void preorder(BinaryTreeNode<int> * root)
+{
+    if(root==NULL)
+    return;
+    cout<<root->data<<" ";
+    preorder(root->left);
+    preorder(root->right);
+}
+// copy-1 2 3 4 5 -1 -1 -1 -1 6 7 -1 -1 -1 -1
 void PrintbinarytreeLevelwise(BinaryTreeNode<int> * root)
 {
     queue<BinaryTreeNode<int>*> pendingnodes;
@@ -104,6 +139,16 @@ void PrintbinarytreeLevelwise(BinaryTreeNode<int> * root)
     }
 }
 
+int numofnode(BinaryTreeNode<int> * root)
+{
+    if(root==NULL)
+    return 0;
+    int ans=1;
+    ans+=numofnode(root->left);
+    ans+=numofnode(root->right);
+    return ans;
+}
+
 int main()
 {
 
@@ -116,6 +161,16 @@ int main()
 // BinaryTreeNode<int> * root=TakeInput();
 BinaryTreeNode<int> * root=takeinputlevelwise();
 PrintbinarytreeLevelwise(root);
+cout<<"Number of nodes in a binary tree is: "<<numofnode(root)<<endl;
+cout<<"INorder Traversal of Binary Tree:->"<<endl;
+inorder(root);
+cout<<endl;
+cout<<"Postorder Traversal of Binary Tree:->"<<endl;
+postorder(root);
+cout<<endl;
+cout<<"Pre Order Traversal of Binary Tree:->"<<endl;
+preorder(root);
+cout<<endl;
 // printdata(root);
     return 0;
 }

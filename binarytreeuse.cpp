@@ -115,6 +115,51 @@ void preorder(BinaryTreeNode<int> * root)
     preorder(root->left);
     preorder(root->right);
 }
+
+// build binary tree from preorder and inorder
+
+BinaryTreeNode<int> * TreeBuilder(int in[], int pre[], int inS, int inE, int prS, int prE)
+{
+    if(inS>inE)
+    return NULL;
+    
+    int rootdata=pre[prS];
+
+// search root node in inorder for rootindex
+int rootindex=-1;
+for(int i=inS;i<=inE;i++)
+{
+    if(in[i]==rootdata)
+    {
+        rootindex=i;
+        break;
+    }
+}
+
+
+    int LprS=prS+1;
+    int LinS=inS;
+    int LinE=rootindex-1;
+    int LprE=LinE-LinS+LprS;
+    int RprS=LprE+1;
+    int RprE=prE;
+    int RinS=rootindex+1;
+    int RinE=inE;
+
+BinaryTreeNode<int>* root=new BinaryTreeNode<int>(rootdata);
+root->left=TreeBuilder(in, pre,LinS,LinE,LprS,LprE);
+root->right=TreeBuilder(in, pre,RinS,RinE,RprS,RprE);
+return root;
+
+}
+
+
+BinaryTreeNode<int> * BuildTree(int *in , int * pre, int size)
+{
+    return TreeBuilder(in, pre,0 , size-1, 0, size-1);
+}
+
+
 // copy-1 2 3 4 5 -1 -1 -1 -1 6 7 -1 -1 -1 -1
 void PrintbinarytreeLevelwise(BinaryTreeNode<int> * root)
 {

@@ -194,6 +194,28 @@ int numofnode(BinaryTreeNode<int> * root)
     return ans;
 }
 
+//height of the root
+int height (BinaryTreeNode<int> * root){
+    if(root==NULL)
+    return 0;
+    return max(height(root->left), height(root->right))+1;
+}
+
+
+//diameter of the root
+
+int diameter(BinaryTreeNode<int> * root)
+{
+    if(root==NULL)
+    return 0;
+
+    int case1=height(root->left)+ height(root->right)+1;
+    int case2=diameter(root->left);
+    int case3=diameter(root->right);
+return max(case1, max(case2, case3));
+
+}
+
 int main()
 {
 

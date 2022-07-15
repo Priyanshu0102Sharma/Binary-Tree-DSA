@@ -42,6 +42,8 @@ BinaryTreeNode<int> * TakeInput ()
     return root;
 }
 
+
+
 BinaryTreeNode<int> * takeinputlevelwise()
 {
     int rootdata;
@@ -154,6 +156,7 @@ return root;
 }
 
 
+
 BinaryTreeNode<int> * BuildTree(int *in , int * pre, int size)
 {
     return TreeBuilder(in, pre,0 , size-1, 0, size-1);
@@ -194,15 +197,17 @@ int numofnode(BinaryTreeNode<int> * root)
     return ans;
 }
 
-//height of the root
+
+
+//height of the tree
 int height (BinaryTreeNode<int> * root){
     if(root==NULL)
     return 0;
     return max(height(root->left), height(root->right))+1;
 }
 
-
-//diameter of the root
+//we find that the time complexity of skew tree is coming to be n*h(=n)=n^2
+//diameter of the tree
 
 int diameter(BinaryTreeNode<int> * root)
 {
@@ -215,6 +220,37 @@ int diameter(BinaryTreeNode<int> * root)
 return max(case1, max(case2, case3));
 
 }
+
+
+pair<int, int> heightdiameter(BinaryTreeNode<int>* root){
+    if(root==NULL)
+    {
+        pair<int, int> p;
+        p.first=0;
+        p.second=0;
+        return p;
+    }
+
+pair<int, int> leftans=heightdiameter(root->left);
+pair<int, int> rightans=heightdiameter(root->right);
+
+int ld=leftans.second;
+int rd=rightans.second;
+int lh=leftans.first;
+int rh=rightans.first;
+
+int height=1+max(lh,rh);
+int diameter=max(lh+rh, max(ld, rd));
+pair<int, int> p;
+p.first=height;
+p.second=diameter;
+return p;
+
+
+
+
+}
+
 
 int main()
 {
